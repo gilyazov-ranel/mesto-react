@@ -1,4 +1,31 @@
-# Getting Started with Create React App
+## Проект: Место
+Обзор
+Что применено
+Github Pages
+Что еще можно улучшить
+Что применено
+
+В проекте Место применено:
+
+Адаптивная верстка, cвестано для 2 разрешений:
+1280px;
+320px;
+Flexbox;
+CSS Grid Layout;
+JavaScript;
+ООП;
+Валидация форм;
+Обработка событий;
+Асинхронные операции;
+Работа с API.
+Github Pages
+
+Ссылка на проект Место
+Что еще можно улучшить
+
+Добавить больше разрешений, чтобы сайт качественно отображался на разных устройствах
+Добавить возможность преводить сайт в светлую тему
+Добавить возможность выбора языка# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
