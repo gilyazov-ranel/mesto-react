@@ -1,9 +1,9 @@
-function ImagePopup({onClose, card}) {
+function ImagePopup({ onClose, card }) {
 
     return (
 
-        <div className={'popup popup_opacity popup_image ' + (card.link && 'popup_opened')}>
-            <div className='popup__container-image'>
+        <div className={'popup popup_opacity popup_image ' + (card.link && 'popup_opened')} onClick={onClose}>
+            <div className='popup__container-image' onClick={e => e.stopPropagation()}>
 
                 <button className='popup__close popup__close_image'
                     type='button'

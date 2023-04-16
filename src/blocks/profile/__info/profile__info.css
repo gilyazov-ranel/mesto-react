@@ -4,7 +4,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    max-width: 336px;
+    max-width: 330px;
 }
 
 @media (max-width: 700px) {
