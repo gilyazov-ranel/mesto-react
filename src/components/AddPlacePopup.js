@@ -1,13 +1,19 @@
 import PopupWithForm from './PopupWithForm';
 import { useInput } from './useInput'
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
-export default function AddPlacePopup({ isOpen, onClose, onAddPlace, nameCard, linkCard }) {
+export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+    const nameCard = useRef();
+    const linkCard = useRef();
     const [errorMessageName, setErrorMessageName] = useState('');
     const [errorMessageLink, setErrorMessageAbout] = useState('');
-
     const name = useInput('', { isEmpty: true, minLength: 2 });
     const link = useInput('', { isEmpty: true, minLength: 0, isUrl: false });
+   
+    useEffect(() => {  
+        nameCard.current.value = '';
+        linkCard.current.value = '';
+    }, [isOpen])
 
     function handleSubmit(e) {
         e.preventDefault();

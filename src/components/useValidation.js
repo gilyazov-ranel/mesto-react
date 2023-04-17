@@ -36,6 +36,7 @@ export function useValidation(value, validations) {
         isEmpty,
         minLengthError,
         urlError,
-        inputValid
+        inputValid,
+        setInputValid
     }
 }

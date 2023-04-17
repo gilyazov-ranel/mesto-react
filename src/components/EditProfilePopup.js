@@ -4,18 +4,30 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useInput } from './useInput'
 
 export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+
+    const currentUser = useContext(CurrentUserContext);
+
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [errorMessageName, setErrorMessageName] = useState('');
     const [errorMessageAbout, setErrorMessageAbout] = useState('');
-    const currentUser = useContext(CurrentUserContext);
+
     const nameUser = useInput('', { isEmpty: true, minLength: 2 });
     const about = useInput('', { isEmpty: true, minLength: 10 });
 
     useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
+
     }, [currentUser]);
+
+    useEffect(() => {
+
+        nameUser.setInputValid(true)
+        about.setInputValid(true)
+
+    }, [isOpen])
+
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -35,7 +47,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     function handleChangeDescription(e) {
         setDescription(e.target.value);
         about.onChange(e);
-        setErrorMessageAbout(e.target.validationMessage)
+        setErrorMessageAbout(e.target.validationMessage);
     }
 
     return (
@@ -45,8 +57,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
-            onDisabled={!nameUser.inputValid || !about.inputValid}
-        >
+            onDisabled={!nameUser.inputValid || !about.inputValid}>
 
             <input
                 onFocus={e => nameUser.onFocus(e)}

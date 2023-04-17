@@ -1,6 +1,6 @@
 
 import '../index.css';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -21,10 +21,7 @@ function App() {
     const [selectedCard, setSelectedCard] = useState({});
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
-    const [card, setCard] = useState([]);
-    const nameCard = useRef();
-    const linkCard = useRef();
-    const userAvatar = useRef();
+    const [card, setCard] = useState({});
 
     useEffect(() => {
         api.getCurrentUser().then(items => {
@@ -126,7 +123,6 @@ function App() {
             .then(item => {
                 setCurrentUser(item);
                 setEditAvatarPopupOpen(false);
-                userAvatar.current.value = ''
             })
             .catch((err) => {
                 console.log(err);
@@ -138,8 +134,7 @@ function App() {
             .then(newCard => {
                 setCards([newCard, ...cards]);
                 setAddPlacePopupOpen(false);
-                nameCard.current.value = ''
-                linkCard.current.value = ''
+
             })
             .catch((err) => {
                 console.log(err);
@@ -148,8 +143,8 @@ function App() {
 
     return (
         <>
-            <Header />
             <CurrentUserContext.Provider value={currentUser} >
+                <Header />
                 <Main onEditProfile={handleEditProfileClick}
                     onAddPlace={handleAddPlaceClick}
                     onEditAvatar={handleEditAvatarClick}
@@ -158,38 +153,35 @@ function App() {
                     cards={cards}
                     onCardLike={handleCardLike}
                     onSelectedCardToDelete={handleSelectedCard} />
-            </CurrentUserContext.Provider>
-            <Footer />
 
-            <CurrentUserContext.Provider value={currentUser}  >
+                <Footer />
+
+
                 <EditProfilePopup isOpen={isEditProfilePopupOpen}
                     onClose={closeAllPopups}
-                    onUpdateUser={handleUpdateUser}
-                    nameP={currentUser.name}
-                    aboutP={currentUser.about} />
+                    onUpdateUser={handleUpdateUser} />
+
+
+                <AddPlacePopup
+                    isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups}
+                    onAddPlace={handleAddPlaceSubmit}
+                />
+                <DeleteCardPopup
+                    isOpen={isDeleteCardPopup}
+                    onClose={closeAllPopups}
+                    onCardDelete={handleCardDelete}
+                    card={card} />
+
+                <EditAvatarPopup isOpen={isEditAvatarPopupOpen}
+                    onClose={closeAllPopups}
+                    onUpdateAvatar={handleUpdateAvatar} 
+                    />
+
+                <ImagePopup
+                    card={selectedCard}
+                    onClose={closeAllPopups} />
             </CurrentUserContext.Provider>
-
-            <AddPlacePopup
-                isOpen={isAddPlacePopupOpen}
-                onClose={closeAllPopups}
-                onAddPlace={handleAddPlaceSubmit}
-                nameCard={nameCard}
-                linkCard={linkCard}
-            />
-            <DeleteCardPopup
-                isOpen={isDeleteCardPopup}
-                onClose={closeAllPopups}
-                onCardDelete={handleCardDelete}
-                card={card} />
-
-            <EditAvatarPopup isOpen={isEditAvatarPopupOpen}
-                onClose={closeAllPopups}
-                onUpdateAvatar={handleUpdateAvatar}
-                userAvatar={userAvatar} />
-
-            <ImagePopup
-                card={selectedCard}
-                onClose={closeAllPopups} />
         </>
     );
 }

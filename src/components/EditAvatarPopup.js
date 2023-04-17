@@ -1,11 +1,15 @@
 import PopupWithForm from './PopupWithForm';
 import { useInput } from './useInput'
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
-export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, userAvatar }) {
-
+export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+    const userAvatar = useRef();
     const [errorMessageAvatar, setErrorMessageAvatar] = useState('');
     const url = useInput('', { isEmpty: true, minLength: 0, isUrl: false });
+
+    useEffect(() => {  
+        userAvatar.current.value = '';
+    }, [isOpen])
 
     function handleSubmit(e) {
         e.preventDefault();

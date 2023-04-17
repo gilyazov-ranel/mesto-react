@@ -28,7 +28,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onSelectedCard, cards, 
                     <button className="profile__info-button"
                         type="button"
                         aria-label="Редактировать профиль"
-                        onClick={onEditProfile}></button>
+                        onClick={onEditProfile}/>
 
                     <p className="profile__subtitle">
                         {currenUser.about}
@@ -43,10 +43,9 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onSelectedCard, cards, 
             </section>
 
             <section className="cards">
-                <CurrentUserContext.Provider value={currenUser} >
+               
                     {cards.map((card) => {
                         return (
-
                             <Card card={card}
                                 onCardClick={onSelectedCard}
                                 key={card._id}
@@ -57,8 +56,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onSelectedCard, cards, 
 
                         )
                     })}
-                </CurrentUserContext.Provider>
-
             </section>
         </main>
 
