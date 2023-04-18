@@ -18,18 +18,19 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-
-    }, [currentUser]);
+    }, [currentUser, isOpen]);
 
     useEffect(() => {
 
-        nameUser.setInputValid(true)
-        about.setInputValid(true)
+        nameUser.setInputValid(true);
+        about.setInputValid(true);
+        setErrorMessageName('');
+        setErrorMessageAbout('');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [onClose])
 
-    }, [isOpen])
 
-
-    function handleSubmit(e) {
+     function handleSubmit(e) {
         e.preventDefault();
 
         onUpdateUser({
@@ -42,6 +43,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         setName(e.target.value);
         nameUser.onChange(e);
         setErrorMessageName(e.target.validationMessage);
+       
     }
 
     function handleChangeDescription(e) {
@@ -64,7 +66,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 id="name-input"
                 type="text"
                 className="popup__input popup__input_text_name"
-                defaultValue={name}
+                value={name ?? ""}
                 name="name"
                 placeholder="Имя"
                 required
@@ -79,7 +81,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 id="job-input"
                 type="text"
                 className="popup__input popup__input_text_job"
-                defaultValue={description}
+                value={description ?? ""}
                 name="about"
                 placeholder="О себе"
                 required
